@@ -42,8 +42,8 @@ let project = Project(
 		)
 	],
 	fileHeaderTemplate: .string("""
-				//
-				//  Copyright © ___ORGANIZATIONNAME___. All rights reserved.
-				//
-				""")
+		//
+		//  Copyright © ___ORGANIZATIONNAME___. All rights reserved.
+		//
+		""")
 )
