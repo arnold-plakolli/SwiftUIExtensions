@@ -4,6 +4,9 @@ import PackageDescription
 
 let package = Package(
 	name: "SwiftUIExtensions",
+	platforms: [
+		.iOS(.v13)
+	],
 	products: [
 		.library(name: "SwiftUIExtensions", targets: ["SwiftUIExtensions"]),
 	],
