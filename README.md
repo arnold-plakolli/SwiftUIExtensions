@@ -1,6 +1,6 @@
 # SwiftUIExtensions
 
-This Swift package offers handy extensions related to SwiftUI.
+This Swift package offers handy extensions for SwiftUI.
 
 ## Installation
 
