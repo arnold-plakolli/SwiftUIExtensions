@@ -5,21 +5,33 @@
 import SwiftUI
 import SwiftUIExtensions
 
+struct Item: Identifiable {
+	let id = UUID()
+	let name: String
+	let details: String
+}
+
 struct ContentView: View {
-	@State var items: [String] = (1...10).map { "Item \($0)" }
-	@State var itemToDelete: String?
+	@State var items: [Item] = (1...10)
+		.map { .init(name: "Item \($0)", details: "Item \($0) is an awesome item") }
+	@State var itemToDelete: Item?
+	@State var expandedItemIDs: Set<UUID> = []
 	
 	var body: some View {
 		List {
-			ForEach(items, id: \.self) { item in
-				Text(item)
-					.swipeActions(edge: .trailing) {
-						Button(role: .destructive) {
-							itemToDelete = item
-						} label: {
-							Image(systemName: "trash")
-						}
+			ForEach(items) { item in
+				DisclosureGroup(isExpanded: $expandedItemIDs.boolBinding(item.id)) {
+					Text(item.details)
+				} label: {
+					Text(item.name)
+				}
+				.swipeActions(edge: .trailing) {
+					Button(role: .destructive) {
+						itemToDelete = item
+					} label: {
+						Image(systemName: "trash")
 					}
+				}
 			}
 		}
 		.navigationTitle("Items")
@@ -30,7 +42,7 @@ struct ContentView: View {
 			
 			Button(role: .destructive) {
 				withAnimation {
-					items = items.filter { $0 != item }
+					items = items.filter { $0.id != item.id }
 				}
 			} label: {
 				Text("Delete")
